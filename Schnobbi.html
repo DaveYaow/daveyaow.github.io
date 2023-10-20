@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Luie Spiel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #ff6f61;
+        }
+        select {
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff5733;
+        }
+        #loveCounter {
+            color: #ff6f61;
+            font-size: 1.5em;
+        }
+        #heart {
+            font-size: 2em;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bist du bereit einen Luie zu geben?</h1>
+    <p>Was für ä Luie? 
+        <select id="playerChoice">
+            <option value="Batzaluie">Batzaluie</option>
+            <option value="Rolluie">Rolluie</option>
+            <option value="Schlabberluie">Schlabberluie</option>
+        </select>
+        <button onclick="playGame()">Spielen</button>
+    </p>
+
+    <div id="result"></div>
+    <p>Erfolgreiche Luies: <span id="loveCounter">0</span> <span id="heart"></span></p>
+
+    <script>
+        let loveCounter = 0;
+
+        function playGame() {
+            // Spielerwahl
+            const playerChoice = document.getElementById("playerChoice").value;
+
+            // Zufällige Auswahl für den Gegner
+            const luies = ["Batzaluie", "Rolluie", "Schlabberluie"];
+            const randomIndex = Math.floor(Math.random() * luies.length);
+            const opponentChoice = luies[randomIndex];
+
+            // Ergebnis anzeigen
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `Du hast ${playerChoice} gewählt und David hat dir einen ${opponentChoice} gegeben. `;
+
+            // Love Calculator
+            if (playerChoice === opponentChoice) {
+                resultDiv.innerHTML += "Batza-Calculator: Ihr bekommt einen Punkt!";
+                loveCounter++;
+
+                // Herzsymbol hinzufügen
+                const heartSpan = document.getElementById("heart");
+                heartSpan.innerHTML = "❤️";
+            } else {
+                resultDiv.innerHTML += "Batza-Calculator: Kein Punkt für euch.";
+            }
+
+            // Aktualisiere den Love-Counter
+            const loveCounterSpan = document.getElementById("loveCounter");
+            loveCounterSpan.innerText = loveCounter;
+        }
+    </script>
+</body>
+</html>
